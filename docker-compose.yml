@@ -1,0 +1,12 @@
+version: "3.1"
+services:
+  niesserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nepolin/nieserver:latest
+    command: make
+    environment:
+      DO_PAT: $DO_PAT
+    volumes:
+      - ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa
