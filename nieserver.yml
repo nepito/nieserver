@@ -76,7 +76,7 @@
       become: true
 
 - name: Set system up
-  hosts: development
+  hosts: nieserver
   tasks:
     - name: Configura huso horario
       timezone:
@@ -84,7 +84,7 @@
       become: true
 
 - name: Tests
-  hosts: development
+  hosts: nieserver
   tasks:
     - name: Prueba Docker
       docker_container:
