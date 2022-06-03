@@ -1,0 +1,92 @@
+---
+- name: Install software using package managers
+  hosts: development
+  tasks:
+    - name: Actualiza paquetes del sistema operativo
+      apt:
+        update_cache: true
+      become: true
+    - name: Instala access control list
+      apt: 
+        name: "acl"
+        state: present
+      become: true
+    - name: Instala cURL
+      apt:
+        name: "curl"
+        state: present
+      become: true
+    - name: Instala Docker
+      apt:
+        name: "docker.io"
+        state: present
+      become: true
+    - name: Instala Docker-compose
+      apt:
+        name: "docker-compose"
+        state: present
+      become: true
+    - name: Instala Git
+      apt:
+        name: "git"
+        state: present
+      become: true
+    - name: Instala Make
+      apt:
+        name: "make"
+        state: present
+      become: true
+    - name: Instala Neovim
+      apt:
+        name: "neovim"
+        state: present
+      become: true
+    - name: Instala pip
+      apt:
+        name: "python3-pip"
+        state: present
+      become: true
+    - name: Instala ShellCheck
+      apt:
+        name: "shellcheck"
+        state: present
+      become: true
+    - name: Instala tmux
+      apt:
+        name: "tmux"
+        state: present
+      become: true
+    - name: Instala Docker SDK para Python
+      pip:
+        name: docker
+      notify: Reinicia servidor
+    - name: Instala Powerline shell
+      pip:
+        name: powerline-shell
+    - name: Agrega '{{ ansible_user_id }}' al grupo docker
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: true
+      become: true
+      notify: Reinicia servidor
+  handlers:
+    - name: Reinicia servidor
+      reboot:
+      become: true
+
+- name: Set system up
+  hosts: development
+  tasks:
+    - name: Configura huso horario
+      timezone:
+        name: America/Los_Angeles
+      become: true
+
+- name: Tests
+  hosts: development
+  tasks:
+    - name: Prueba Docker
+      docker_container:
+        name: hello-world
+        image: hello-world
