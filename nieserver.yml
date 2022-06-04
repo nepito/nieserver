@@ -1,6 +1,6 @@
 ---
 - name: Install software using package managers
-  hosts: development
+  hosts: nieserver
   tasks:
     - name: Actualiza paquetes del sistema operativo
       apt:
