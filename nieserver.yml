@@ -41,6 +41,11 @@
         name: "neovim"
         state: present
       become: true
+    - name: Instala nginx
+      apt:
+        name: "nginx"
+        state: present
+      become: true
     - name: Instala pip
       apt:
         name: "python3-pip"
